@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-05 16:14:25
- * @LastEditTime: 2021-05-08 16:42:47
+ * @LastEditTime: 2021-05-08 17:28:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \brood-pressure-demo - one\src\store\common.js
@@ -21,7 +21,7 @@ export default new Vuex.Store({
     bleConnected: 1, // 监听设备蓝牙连接结果
     data:'',
     isDark: window.isHilinkDark, // 是否是暗黑模式
-    timeLength:"",
+    color:"",
   },
   mutations: {
     UPDATED_BLECONNECTED(state,payload) {
@@ -31,7 +31,7 @@ export default new Vuex.Store({
       state.data = payload;
     },
     UPDATE_TIME(state,payload){
-      state.timeLength = payload;
+      state.color = payload;
     },
   },
   actions: {

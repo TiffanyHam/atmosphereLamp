@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 17:06:40
- * @LastEditTime: 2021-05-08 17:27:08
+ * @LastEditTime: 2021-05-08 17:29:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \AleBrush\src\views\index.vue
@@ -37,7 +37,7 @@
         <span>{{ $t("index.ClassicColor") }}</span
         ><br />
         <div class="text_color" v-if="isflage !== isConnect">
-          <span>{{ timeLen | brushLength(te) }}</span>
+          <span>{{ colorDisplay | ClassicColor(te) }}</span>
         </div>
       </div>
       <div class="icon_width">
@@ -67,7 +67,7 @@ export default {
     return {
       isflage: true,
       isConnect: true,
-      timeLen: "00",
+      colorDisplay: "00",
       isTime: false,
       shiftTest: [
         { name: this.$t("ClassicColor.length1"), index: 0 },
@@ -82,7 +82,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["bleConnected", "data", "timeLength"]),
+    ...mapState(["bleConnected", "data", "color"]),
   },
   mounted() {
     this.initData();
@@ -94,7 +94,7 @@ export default {
      * @param {*} te
      * @return {*}
      */
-    brushLength(status, te) {
+    ClassicColor(status, te) {
       const statusMap = {
         "00": te("ClassicColor.length1"),
         "01": te("ClassicColor.length2"),
@@ -112,12 +112,12 @@ export default {
       this.isTime = !this.isTime;
     },
     initData() {
-      if (this.timeLength == "") {
-        this.timeLen = "00";
+      if (this.color == "") {
+        this.colorDisplay = "00";
       } else {
-        this.timeLen = this.timeLength;
+        this.colorDisplay = this.color;
       }
-      this.selectIndex1 = this.changeStatus(this.timeLength);
+      this.selectIndex1 = this.changeStatus(this.color);
     },
     changeStatus(val) {
       switch (val) {
@@ -157,43 +157,43 @@ export default {
       let last = "";
       switch (index) {
         case 0:
-          this.timeLen = "00";
+          this.colorDisplay = "00";
           mode = "00";
           last = "5C";
           break;
         case 1:
-          this.timeLen = "01";
+          this.colorDisplay = "01";
           mode = "01";
           last = "5D";
           break;
         case 2:
-          this.timeLen = "02";
+          this.colorDisplay = "02";
           mode = "02";
           last = "5E";
           break;
         case 3:
-          this.timeLen = "03";
+          this.colorDisplay = "03";
           mode = "03";
           last = "5C";
           break;
         case 4:
-          this.timeLen = "04";
+          this.colorDisplay = "04";
           mode = "04";
           last = "5D";
           break;
         case 5:
-          this.timeLen = "05";
+          this.colorDisplay = "05";
           mode = "05";
           last = "5E";
           break;
         case 6:
-          this.timeLen = "06";
+          this.colorDisplay = "06";
           mode = "06";
           last = "5E";
           break;
       }
-      // console.log("选择", this.timeLen);
-      this.$store.dispatch("save_time", this.timeLen);
+      // console.log("选择", this.colorDisplay);
+      this.$store.dispatch("save_time", this.colorDisplay);
       let param = "F55F060101" + mode + last;
       //window.hiLinkBle.send(param);
     },
