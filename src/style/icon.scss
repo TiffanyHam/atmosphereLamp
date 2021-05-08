@@ -1,6 +1,17 @@
 
-
+.time_len_gray{
+    background-image: url('../assets/image/icon/light/time_len_gray.png');
+}
+.time_len {
+    background-image: url('../assets/image/icon/light/time_len.png');
+}
 .theme-dark {
-
+    .time_len {
+        background-image: url('../assets/image/icon/dark/time_len.png');
+    }
+   .time_len_gray{
+        background-image: url('../assets/image/icon/dark/time_len_gray.png');
+        opacity: .86;
+    }
 
 }
