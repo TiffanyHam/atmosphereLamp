@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 17:06:40
- * @LastEditTime: 2021-05-08 17:25:09
+ * @LastEditTime: 2021-05-08 17:27:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \AleBrush\src\views\index.vue
@@ -36,7 +36,7 @@
       <div>
         <span>{{ $t("index.ClassicColor") }}</span
         ><br />
-        <div class="text_color" v-if="isflage == isConnect">
+        <div class="text_color" v-if="isflage !== isConnect">
           <span>{{ timeLen | brushLength(te) }}</span>
         </div>
       </div>
