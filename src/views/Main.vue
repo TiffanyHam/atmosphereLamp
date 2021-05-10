@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 17:06:40
- * @LastEditTime: 2021-05-08 17:29:00
+ * @LastEditTime: 2021-05-10 17:18:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \AleBrush\src\views\index.vue
@@ -27,7 +27,29 @@
     <div class="connectState flexR" v-show="!isflage && isConnect">
       <div>{{ $t("index.connected") }}</div>
     </div>
-    <!-- second -->
+    <!-- one -->
+    <div class="hi-timeitem bg_FFFFFF">
+      <div class="timeitemMain" v-for="(item, index) in brightItem"
+          :key="index">
+        <div class="imgBorder" 
+             :class="selectIndex == index ? 'borderC1' : 'borderC'"
+             @click="selectBri(item.index)">
+          <div :class="['common', item.class]"></div>
+        </div>
+        <span class="">{{item.name}}</span>
+      </div>
+    </div>
+    <!-- 亮度 -->
+    <div class="magBottom">
+      <sliderCard
+        class="bg_card mt8"
+        leftTxt="亮度"
+        v-show="isBright"
+        :percent="percent"
+        @sliderTouchEnd="sliderTouchEnd"
+      ></sliderCard>
+    </div>
+    <!-- 经典颜色 -->
     <div
       class="flexR contentList"
       @click="brushTimeClick"
@@ -78,7 +100,16 @@ export default {
         { name: this.$t("ClassicColor.length6"), index: 5 },
         { name: this.$t("ClassicColor.length7"), index: 6 },
       ],
+      brightItem:[
+        {name: this.$t("brightness.bright1"), index: 0,class:'bright01'},
+        {name: this.$t("brightness.bright2"), index: 1,class:'bright02'},
+        {name: this.$t("brightness.bright3"), index: 2,class:'bright03'},
+        {name: this.$t("brightness.bright4"), index: 3,class:'bright04'},
+      ],
+      selectIndex:0,
       selectIndex1: 0,
+      percent: "10",
+      isBright: true,
     };
   },
   computed: {
@@ -108,6 +139,12 @@ export default {
     },
   },
   methods: {
+    selectBri(val){
+        this.selectIndex = val;
+    },
+    sliderTouchEnd(val) {
+      this.percent = val;
+    },
     brushTimeClick() {
       this.isTime = !this.isTime;
     },
@@ -260,6 +297,44 @@ export default {
       font-size: 0.44444444rem;
     }
   }
+  .hi-timeitem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    padding: 0 24px;
+    .timeitemMain {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      line-height: 1.33;
+      .borderC{
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+      .borderC1{
+        border: 1px solid #007DFF;
+      }
+      .imgBorder {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        display: flex;
+        .common {
+          width: 30px;
+          height: 30px;
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          margin: auto;
+        }
+      }
+
+    }
+  }
+  .magBottom {
+    margin: 0 0 8px 0;
+  }
   .contentList {
     height: 64px;
     background-color: #fff;
@@ -289,6 +364,7 @@ export default {
     .rightM {
       margin-right: 8px;
     }
+
     .patternCommon {
       width: 24px;
       height: 24px;

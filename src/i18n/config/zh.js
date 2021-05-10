@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-08 15:16:18
- * @LastEditTime: 2021-05-08 17:25:02
+ * @LastEditTime: 2021-05-10 16:59:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \atmosphereLamp\src\i18n\config\zh.js
@@ -24,5 +24,12 @@ const zh = {
     length6:'时尚紫',
     length7:'浪漫粉'
 },
+//亮度
+brightness:{
+  bright1:'全局亮度',
+  bright2:'轮廓亮度',
+  bright3:'氛围亮度',
+  bright4:'其他亮度',
+}
 }
 export default zh;
