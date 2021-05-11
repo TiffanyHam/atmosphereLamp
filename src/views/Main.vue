@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 17:06:40
- * @LastEditTime: 2021-05-10 17:18:08
+ * @LastEditTime: 2021-05-11 09:49:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \AleBrush\src\views\index.vue
@@ -79,6 +79,14 @@
         @eventClick="timeClick"
       ></HiCardShift>
     </div>
+    <!-- 灯光模式 -->
+    <div class="hi-timeitem1 flexR">
+       <div class="timeitemMain1" v-for="(item, index) in todos"
+          :key="index +'-info'">
+              <span class="mode1 commonImg" :class="index%2 == 0 ? 'mag-right':''"></span>
+              <span>{{item.text}}</span>
+                </div>
+    </div>
   </div>
 </template>
    
@@ -105,6 +113,16 @@ export default {
         {name: this.$t("brightness.bright2"), index: 1,class:'bright02'},
         {name: this.$t("brightness.bright3"), index: 2,class:'bright03'},
         {name: this.$t("brightness.bright4"), index: 3,class:'bright04'},
+      ],
+       todos: [
+          { text: '呼吸模式' },
+          { text: '渐变模式' },
+          // { text: '循环模式' },
+          // { text:'爆闪模式' },
+          // { text:'音律模式' },
+          // { text:'运动模式' },
+          // { text:'炫彩模式' },
+          // { text:'自然光' }
       ],
       selectIndex:0,
       selectIndex1: 0,
@@ -332,6 +350,29 @@ export default {
 
     }
   }
+
+.hi-timeitem1 {
+  padding: 0 24px;
+    .timeitemMain1 {
+      display: flex;
+      flex-direction: column;
+      // justify-content: center;
+      // align-items: center;
+      line-height: 1.33;
+        .commonImg{
+            width: 150px;
+            height: 83px;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            margin-bottom: 10px;
+            //margin: auto;
+        }
+        .mag-right{
+          margin-right:8px;
+        }
+    }
+}
+
   .magBottom {
     margin: 0 0 8px 0;
   }
