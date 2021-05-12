@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 17:06:40
- * @LastEditTime: 2021-05-12 17:46:11
+ * @LastEditTime: 2021-05-12 17:52:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \AleBrush\src\views\index.vue
@@ -27,7 +27,7 @@
       </div>
       <div class="connectState flexR" v-show="!isflage && isConnect">
         <div>{{ $t("index.connected") }}</div>
-        <div class="open"></div>
+        <div :class="isOpen ? 'open':'close'" @click="openClick">
       </div>
       <!-- one -->
       <div class="bg_card magBottom">
@@ -140,6 +140,7 @@ export default {
       isTime: false,
       isUse: false,
       selectUse: null,
+      isOpen:true,
       shiftTest: [
         { name: this.$t("ClassicColor.length1"), index: 0 },
         { name: this.$t("ClassicColor.length2"), index: 1 },
@@ -198,6 +199,9 @@ export default {
     },
   },
   methods: {
+    openClick(){
+      this.isOpen = !this.isOpen
+    },
     useClick(val) {
       this.selectUse = val;
     },
@@ -362,7 +366,7 @@ export default {
     .again {
       font-size: 0.44444444rem;
     }
-    .open {
+    .open,.close {
       width: 48px;
       height: 48px;
       background-size: 100% 100%;
