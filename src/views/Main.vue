@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 17:06:40
- * @LastEditTime: 2021-05-11 09:49:36
+ * @LastEditTime: 2021-05-12 17:31:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \AleBrush\src\views\index.vue
@@ -9,6 +9,7 @@
 <!--  -->
 <template>
   <div class="page bg_F7F7F7">
+    <div class="index_main">
     <!-- 产品图 -->
     <div class="productI"></div>
     <!-- logo -->
@@ -28,30 +29,47 @@
       <div>{{ $t("index.connected") }}</div>
     </div>
     <!-- one -->
-    <div class="hi-timeitem bg_FFFFFF">
-      <div class="timeitemMain" v-for="(item, index) in brightItem"
-          :key="index">
-        <div class="imgBorder" 
-             :class="selectIndex == index ? 'borderC1' : 'borderC'"
-             @click="selectBri(item.index)">
-          <div :class="['common', item.class]"></div>
+    <div class="bg_card magBottom">
+      <div class="hi-timeitem">
+        <div
+          class="timeitemMain"
+          v-for="(item, index) in brightItem"
+          :key="index"
+        >
+          <div
+            class="imgBorder"
+            :class="selectIndex == index ? 'borderC1' : 'borderC'"
+            @click="selectBri(item.index)"
+          >
+            <div :class="['common', item.class]"></div>
+          </div>
+          <span class="timeitemText">{{ item.name }}</span>
         </div>
-        <span class="">{{item.name}}</span>
       </div>
-    </div>
-    <!-- 亮度 -->
-    <div class="magBottom">
-      <sliderCard
-        class="bg_card mt8"
-        leftTxt="亮度"
-        v-show="isBright"
-        :percent="percent"
-        @sliderTouchEnd="sliderTouchEnd"
-      ></sliderCard>
+      <!-- 颜色 -->
+      <div class="magBottom">
+        <sliderCard
+          class="mt8"
+          leftTxt="颜色"
+          v-show="isBright"
+          :percent="percent"
+          @sliderTouchEnd="sliderTouchEnd"
+        ></sliderCard>
+      </div>
+      <!-- 亮度 -->
+      <div class="magBottom">
+        <sliderCard
+          class="mt8"
+          leftTxt="亮度"
+          v-show="isBright"
+          :percent="percent"
+          @sliderTouchEnd="sliderTouchEnd"
+        ></sliderCard>
+      </div>
     </div>
     <!-- 经典颜色 -->
     <div
-      class="flexR contentList"
+      class="flexR contentList magBottom"
       @click="brushTimeClick"
       :class="isflage == isConnect ? 'opacityVal' : ''"
     >
@@ -72,7 +90,7 @@
         ></div>
       </div>
       <HiCardShift
-        class="mt8 cardP"
+        class="cardP"
         :shiftList="shiftTest"
         v-show="isTime"
         :selectNum="selectIndex1"
@@ -80,13 +98,30 @@
       ></HiCardShift>
     </div>
     <!-- 灯光模式 -->
-    <div class="hi-timeitem1 flexR">
-       <div class="timeitemMain1" v-for="(item, index) in todos"
-          :key="index +'-info'">
-              <span class="mode1 commonImg" :class="index%2 == 0 ? 'mag-right':''"></span>
-              <span>{{item.text}}</span>
-                </div>
+    <div class="lightMode magBottom">{{ $t("brightMode.mode")}}</div>
+    <div class="flexR">
+    <div class="hi-timeitem_left">
+      <div v-for="(item, index) in todos" :key="index + '-info'">
+        <div class="timeitemMain1"  v-if="index % 2 != 1">
+          <span class="mode1 commonImg" @click="useClick(index)"></span>
+          <div class="useLogo" v-show="selectUse == index ? true : false">{{ $t("index.use")}}</div>
+          <span>{{ item.text }}</span>
+        </div>
+      </div>
     </div>
+
+    <div class="hi-timeitem_right">
+      <div v-for="(item, index) in todos" :key="index + '-info1'">
+        <div class="timeitemMain1"  v-if="index % 2 != 0">
+          <span class="mode1 commonImg" @click="useClick(index)"></span>
+          <div class="useLogo" v-show="selectUse == index ? true : false">{{ $t("index.use")}}</div>
+          <span>{{ item.text }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
   </div>
 </template>
    
@@ -99,6 +134,8 @@ export default {
       isConnect: true,
       colorDisplay: "00",
       isTime: false,
+      isUse:false,
+      selectUse:null,
       shiftTest: [
         { name: this.$t("ClassicColor.length1"), index: 0 },
         { name: this.$t("ClassicColor.length2"), index: 1 },
@@ -108,23 +145,23 @@ export default {
         { name: this.$t("ClassicColor.length6"), index: 5 },
         { name: this.$t("ClassicColor.length7"), index: 6 },
       ],
-      brightItem:[
-        {name: this.$t("brightness.bright1"), index: 0,class:'bright01'},
-        {name: this.$t("brightness.bright2"), index: 1,class:'bright02'},
-        {name: this.$t("brightness.bright3"), index: 2,class:'bright03'},
-        {name: this.$t("brightness.bright4"), index: 3,class:'bright04'},
+      brightItem: [
+        { name: this.$t("brightness.bright1"), index: 0, class: "bright01" },
+        { name: this.$t("brightness.bright2"), index: 1, class: "bright02" },
+        { name: this.$t("brightness.bright3"), index: 2, class: "bright03" },
+        { name: this.$t("brightness.bright4"), index: 3, class: "bright04" },
       ],
-       todos: [
-          { text: '呼吸模式' },
-          { text: '渐变模式' },
-          // { text: '循环模式' },
-          // { text:'爆闪模式' },
-          // { text:'音律模式' },
-          // { text:'运动模式' },
-          // { text:'炫彩模式' },
-          // { text:'自然光' }
+      todos: [
+        { text: this.$t("brightMode.mode1") },
+        { text: this.$t("brightMode.mode2") },
+        { text: this.$t("brightMode.mode3") },
+        { text: this.$t("brightMode.mode4") },
+        { text: this.$t("brightMode.mode5") },
+        { text: this.$t("brightMode.mode6") },
+        { text: this.$t("brightMode.mode7") },
+        { text: this.$t("brightMode.mode8") },
       ],
-      selectIndex:0,
+      selectIndex: 0,
       selectIndex1: 0,
       percent: "10",
       isBright: true,
@@ -157,8 +194,11 @@ export default {
     },
   },
   methods: {
-    selectBri(val){
-        this.selectIndex = val;
+    useClick(val){
+      this.selectUse = val
+    },
+    selectBri(val) {
+      this.selectIndex = val;
     },
     sliderTouchEnd(val) {
       this.percent = val;
@@ -280,6 +320,10 @@ export default {
   flex-direction: column;
   padding: 0 16px;
   overflow: auto;
+  .index_main{
+    height: 100%;
+    box-sizing: border-box;
+  }
   .flexR {
     display: flex;
     flex-direction: row;
@@ -319,7 +363,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 64px;
+    height: 96px;
     padding: 0 24px;
     .timeitemMain {
       display: flex;
@@ -327,51 +371,66 @@ export default {
       justify-content: center;
       align-items: center;
       line-height: 1.33;
-      .borderC{
+      .borderC {
         border: 1px solid rgba(0, 0, 0, 0.2);
       }
-      .borderC1{
-        border: 1px solid #007DFF;
+      .borderC1 {
+        border: 1px solid rgba(0, 125, 255, 0.2);
+      }
+      .timeitemText {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.9);
       }
       .imgBorder {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         display: flex;
         .common {
-          width: 30px;
-          height: 30px;
+          width: 24px;
+          height: 24px;
           background-size: 100% 100%;
           background-repeat: no-repeat;
           margin: auto;
         }
       }
-
     }
   }
-
-.hi-timeitem1 {
-  padding: 0 24px;
-    .timeitemMain1 {
-      display: flex;
-      flex-direction: column;
-      // justify-content: center;
-      // align-items: center;
-      line-height: 1.33;
-        .commonImg{
-            width: 150px;
-            height: 83px;
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            margin-bottom: 10px;
-            //margin: auto;
-        }
-        .mag-right{
-          margin-right:8px;
-        }
+  .lightMode {
+    height: 48px;
+    line-height: 48px;
+    color: rgba(0, 0, 0, 0.9);
+    font-size: 18px;
+  }
+  .timeitemMain1 {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.33;
+    margin-bottom: 16px;
+    position: relative;
+    .useLogo{
+      font-size: 10px;
+      position: absolute;
+      right: 3px;
+      top: 3px;
+      width: 44.5px;
+      height: 20px;
+      line-height: 20px;
+      background: #80C302;
+      color: #fff;
+      border-radius: 2px;
+      text-align: center;
     }
-}
+    .commonImg {
+      width: 160px;
+      height: 90px;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      margin-bottom: 8px;
+      border-radius: 8px;
+    }
+  }
 
   .magBottom {
     margin: 0 0 8px 0;
@@ -416,7 +475,7 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 2.44rem;
+      height: 64px;
       margin: 0 0 8px 0;
       .item {
         flex: 1;
