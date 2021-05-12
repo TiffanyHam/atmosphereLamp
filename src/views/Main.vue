@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 17:06:40
- * @LastEditTime: 2021-05-12 17:31:41
+ * @LastEditTime: 2021-05-12 17:46:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \AleBrush\src\views\index.vue
@@ -10,118 +10,122 @@
 <template>
   <div class="page bg_F7F7F7">
     <div class="index_main">
-    <!-- 产品图 -->
-    <div class="productI"></div>
-    <!-- logo -->
-    <div class="logo"></div>
-    <!-- 连接状态 -->
-    <div class="connectState flexR" v-show="isflage">
-      <div>{{ $t("index.noConnect") }}</div>
-      <div class="c_007DFF again" @click="reConnect">
-        {{ $t("index.again") }}
+      <!-- 产品图 -->
+      <div class="productI"></div>
+      <!-- logo -->
+      <div class="logo"></div>
+      <!-- 连接状态 -->
+      <div class="connectState flexR" v-show="isflage">
+        <div>{{ $t("index.noConnect") }}</div>
+        <div class="c_007DFF again" @click="reConnect">
+          {{ $t("index.again") }}
+        </div>
       </div>
-    </div>
-    <div class="connectState flexR" v-show="!isflage && !isConnect">
-      <div>{{ $t("index.connect") }}</div>
-      <div class="loading_icon"></div>
-    </div>
-    <div class="connectState flexR" v-show="!isflage && isConnect">
-      <div>{{ $t("index.connected") }}</div>
-    </div>
-    <!-- one -->
-    <div class="bg_card magBottom">
-      <div class="hi-timeitem">
-        <div
-          class="timeitemMain"
-          v-for="(item, index) in brightItem"
-          :key="index"
-        >
+      <div class="connectState flexR" v-show="!isflage && !isConnect">
+        <div>{{ $t("index.connect") }}</div>
+        <div class="loading_icon"></div>
+      </div>
+      <div class="connectState flexR" v-show="!isflage && isConnect">
+        <div>{{ $t("index.connected") }}</div>
+        <div class="open"></div>
+      </div>
+      <!-- one -->
+      <div class="bg_card magBottom">
+        <div class="hi-timeitem">
           <div
-            class="imgBorder"
-            :class="selectIndex == index ? 'borderC1' : 'borderC'"
-            @click="selectBri(item.index)"
+            class="timeitemMain"
+            v-for="(item, index) in brightItem"
+            :key="index"
           >
-            <div :class="['common', item.class]"></div>
+            <div
+              class="imgBorder"
+              :class="selectIndex == index ? 'borderC1' : 'borderC'"
+              @click="selectBri(item.index)"
+            >
+              <div :class="['common', item.class]"></div>
+            </div>
+            <span class="timeitemText">{{ item.name }}</span>
           </div>
-          <span class="timeitemText">{{ item.name }}</span>
+        </div>
+        <!-- 颜色 -->
+        <div class="magBottom">
+          <sliderCard
+            class="mt8"
+            leftTxt="颜色"
+            v-show="isBright"
+            :percent="percent"
+            @sliderTouchEnd="sliderTouchEnd"
+          ></sliderCard>
+        </div>
+        <!-- 亮度 -->
+        <div class="magBottom">
+          <sliderCard
+            class="mt8"
+            leftTxt="亮度"
+            v-show="isBright"
+            :percent="percent"
+            @sliderTouchEnd="sliderTouchEnd"
+          ></sliderCard>
         </div>
       </div>
-      <!-- 颜色 -->
-      <div class="magBottom">
-        <sliderCard
-          class="mt8"
-          leftTxt="颜色"
-          v-show="isBright"
-          :percent="percent"
-          @sliderTouchEnd="sliderTouchEnd"
-        ></sliderCard>
-      </div>
-      <!-- 亮度 -->
-      <div class="magBottom">
-        <sliderCard
-          class="mt8"
-          leftTxt="亮度"
-          v-show="isBright"
-          :percent="percent"
-          @sliderTouchEnd="sliderTouchEnd"
-        ></sliderCard>
-      </div>
-    </div>
-    <!-- 经典颜色 -->
-    <div
-      class="flexR contentList magBottom"
-      @click="brushTimeClick"
-      :class="isflage == isConnect ? 'opacityVal' : ''"
-    >
-      <div>
-        <span>{{ $t("index.ClassicColor") }}</span
-        ><br />
-        <div class="text_color" v-if="isflage !== isConnect">
-          <span>{{ colorDisplay | ClassicColor(te) }}</span>
+      <!-- 经典颜色 -->
+      <div
+        class="flexR contentList magBottom"
+        @click="brushTimeClick"
+        :class="isflage == isConnect ? 'opacityVal' : ''"
+      >
+        <div>
+          <span>{{ $t("index.ClassicColor") }}</span
+          ><br />
+          <div class="text_color" v-if="isflage !== isConnect">
+            <span>{{ colorDisplay | ClassicColor(te) }}</span>
+          </div>
         </div>
-      </div>
-      <div class="icon_width">
-        <div
-          :class="
-            isflage == isConnect
-              ? 'time_len_gray patternCommon'
-              : 'time_len patternCommon'
-          "
-        ></div>
-      </div>
-      <HiCardShift
-        class="cardP"
-        :shiftList="shiftTest"
-        v-show="isTime"
-        :selectNum="selectIndex1"
-        @eventClick="timeClick"
-      ></HiCardShift>
-    </div>
-    <!-- 灯光模式 -->
-    <div class="lightMode magBottom">{{ $t("brightMode.mode")}}</div>
-    <div class="flexR">
-    <div class="hi-timeitem_left">
-      <div v-for="(item, index) in todos" :key="index + '-info'">
-        <div class="timeitemMain1"  v-if="index % 2 != 1">
-          <span class="mode1 commonImg" @click="useClick(index)"></span>
-          <div class="useLogo" v-show="selectUse == index ? true : false">{{ $t("index.use")}}</div>
-          <span>{{ item.text }}</span>
+        <div class="icon_width">
+          <div
+            :class="
+              isflage == isConnect
+                ? 'time_len_gray patternCommon'
+                : 'time_len patternCommon'
+            "
+          ></div>
         </div>
+        <HiCardShift
+          class="cardP"
+          :shiftList="shiftTest"
+          v-show="isTime"
+          :selectNum="selectIndex1"
+          @eventClick="timeClick"
+        ></HiCardShift>
       </div>
-    </div>
+      <!-- 灯光模式 -->
+      <div class="lightMode magBottom">{{ $t("brightMode.mode") }}</div>
+      <div class="flexR">
+        <div class="hi-timeitem_left">
+          <div v-for="(item, index) in todos" :key="index + '-info'">
+            <div class="timeitemMain1" v-if="index % 2 != 1">
+              <span class="mode1 commonImg" @click="useClick(index)"></span>
+              <div class="useLogo" v-show="selectUse == index ? true : false">
+                {{ $t("index.use") }}
+              </div>
+              <span>{{ item.text }}</span>
+            </div>
+          </div>
+        </div>
 
-    <div class="hi-timeitem_right">
-      <div v-for="(item, index) in todos" :key="index + '-info1'">
-        <div class="timeitemMain1"  v-if="index % 2 != 0">
-          <span class="mode1 commonImg" @click="useClick(index)"></span>
-          <div class="useLogo" v-show="selectUse == index ? true : false">{{ $t("index.use")}}</div>
-          <span>{{ item.text }}</span>
+        <div class="hi-timeitem_right">
+          <div v-for="(item, index) in todos" :key="index + '-info1'">
+            <div class="timeitemMain1" v-if="index % 2 != 0">
+              <span class="mode1 commonImg" @click="useClick(index)"></span>
+              <div class="useLogo" v-show="selectUse == index ? true : false">
+                {{ $t("index.use") }}
+              </div>
+              <span>{{ item.text }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-  </div>
-  </div>
   </div>
 </template>
    
@@ -134,8 +138,8 @@ export default {
       isConnect: true,
       colorDisplay: "00",
       isTime: false,
-      isUse:false,
-      selectUse:null,
+      isUse: false,
+      selectUse: null,
       shiftTest: [
         { name: this.$t("ClassicColor.length1"), index: 0 },
         { name: this.$t("ClassicColor.length2"), index: 1 },
@@ -194,8 +198,8 @@ export default {
     },
   },
   methods: {
-    useClick(val){
-      this.selectUse = val
+    useClick(val) {
+      this.selectUse = val;
     },
     selectBri(val) {
       this.selectIndex = val;
@@ -320,7 +324,7 @@ export default {
   flex-direction: column;
   padding: 0 16px;
   overflow: auto;
-  .index_main{
+  .index_main {
     height: 100%;
     box-sizing: border-box;
   }
@@ -357,6 +361,12 @@ export default {
     color: rgba(0, 0, 0, 0.9);
     .again {
       font-size: 0.44444444rem;
+    }
+    .open {
+      width: 48px;
+      height: 48px;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
     }
   }
   .hi-timeitem {
@@ -409,7 +419,7 @@ export default {
     line-height: 1.33;
     margin-bottom: 16px;
     position: relative;
-    .useLogo{
+    .useLogo {
       font-size: 10px;
       position: absolute;
       right: 3px;
@@ -417,7 +427,7 @@ export default {
       width: 44.5px;
       height: 20px;
       line-height: 20px;
-      background: #80C302;
+      background: #80c302;
       color: #fff;
       border-radius: 2px;
       text-align: center;

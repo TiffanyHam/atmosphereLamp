@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-08 15:16:18
- * @LastEditTime: 2021-05-12 17:31:07
+ * @LastEditTime: 2021-05-12 17:36:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \atmosphereLamp\src\i18n\config\zh.js
@@ -10,7 +10,7 @@ const zh = {
   index: {
     noConnect: "未连接",
     connect: "连接中",
-    connected: "已连接",
+    connected: "已开启",
     again: "重新连接",
     ClassicColor: "经典颜色",
     use: "使用中",

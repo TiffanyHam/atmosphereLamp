@@ -20,6 +20,9 @@
 .mode1{
     background-image: url('../assets/image/product/mode1.png');
 }
+.open{
+    background-image: url('../assets/image/icon/light/on.png');
+}
 .theme-dark {
     .time_len {
         background-image: url('../assets/image/icon/dark/time_len.png');
@@ -27,6 +30,9 @@
    .time_len_gray{
         background-image: url('../assets/image/icon/dark/time_len_gray.png');
         opacity: .86;
+    }
+    .open{
+        background-image: url('../assets/image/icon/dark/on.png');
     }
 
 }
