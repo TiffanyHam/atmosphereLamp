@@ -1,26 +1,5 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: Tiffany
- * @Date: 2021-01-10 10:11:13
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-04-25 09:25:22
--->
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: Tiffany
- * @Date: 2020-12-23 10:05:44
- * @LastEditors: Tiffany
- * @LastEditTime: 2020-12-24 14:23:01
--->
+
 <template>
-        <!-- <div class="flex">
-            <span class="warn"></span>
-            <span class="text">{{$t('Reconnection.index')}}</span>
-        </div>
-        <span v-if="syncMessage" class="syncMessage">同步信息</span>
-        <span v-else></span> -->
    <div class="bleDialog" v-show="isAppear">
         <!-- 蒙版 -->
         <div class="mask animate__animated animate__fadeIn" key="1" @click="close" v-if="show" @touchmove.prevent>
@@ -28,7 +7,6 @@
         <div class="dialog" v-show="show" key="2">
             <div class="dialogTitle">
                 <slot name="title">{{$t('Hint.tipTitle')}}</slot>
-                <!-- <slot name="title" v-else>{{$t('Hint.tipTitle1')}}</slot> -->
             </div>
             <div class="dialogContent">
                 <div>
@@ -40,21 +18,10 @@
                     <br />
                     <slot>{{$t('Hint.tipText3')}}</slot>
                 </div>
-                <!-- <div v-else>
-                    <slot>{{$t('Hint.tipText4')}}</slot>
-                </div> -->
                 
             </div>
             <div class="dialog_footer fb">
-                <span class="btn btn_left" @click="close">
-                    <slot name="cancle">{{$t('Hint.sure')}}</slot>
-                    <!-- <slot v-else>{{$t('Hint.change')}}</slot> -->
-                </span>
-                <span class="line"></span>
-                <span class="btn" @click="handleClick">
-                    <slot name="sure btn_right">{{$t('Hint.conn')}}</slot>
-                    <!-- <slot v-else>{{$t('Hint.close')}}</slot> -->
-                </span>
+                <span @click="close">{{$t('Hint.known')}}</span>
             </div>
         </div>
     </div>
@@ -70,16 +37,8 @@ export default {
       }
   },
   props: {
-    // isChange:{
-    //   type: Boolean,
-    //   required: true,
-    //   default: false,
-    // }
   },
   methods:{
-      handleClick(){
-          window.hiLinkBle.reConnect();
-      },
       close(){
           this.show = false
       }

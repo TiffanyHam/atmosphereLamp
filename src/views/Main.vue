@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 17:06:40
- * @LastEditTime: 2021-05-12 17:52:28
+ * @LastEditTime: 2021-05-13 11:41:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \AleBrush\src\views\index.vue
@@ -10,122 +10,131 @@
 <template>
   <div class="page bg_F7F7F7">
     <div class="index_main">
-      <!-- 产品图 -->
-      <div class="productI"></div>
-      <!-- logo -->
-      <div class="logo"></div>
-      <!-- 连接状态 -->
-      <div class="connectState flexR" v-show="isflage">
-        <div>{{ $t("index.noConnect") }}</div>
-        <div class="c_007DFF again" @click="reConnect">
-          {{ $t("index.again") }}
-        </div>
-      </div>
-      <div class="connectState flexR" v-show="!isflage && !isConnect">
-        <div>{{ $t("index.connect") }}</div>
-        <div class="loading_icon"></div>
-      </div>
-      <div class="connectState flexR" v-show="!isflage && isConnect">
-        <div>{{ $t("index.connected") }}</div>
-        <div :class="isOpen ? 'open':'close'" @click="openClick">
-      </div>
-      <!-- one -->
-      <div class="bg_card magBottom">
-        <div class="hi-timeitem">
-          <div
-            class="timeitemMain"
-            v-for="(item, index) in brightItem"
-            :key="index"
-          >
-            <div
-              class="imgBorder"
-              :class="selectIndex == index ? 'borderC1' : 'borderC'"
-              @click="selectBri(item.index)"
-            >
-              <div :class="['common', item.class]"></div>
-            </div>
-            <span class="timeitemText">{{ item.name }}</span>
+      <div class="content">
+        <!-- 产品图 -->
+        <div class="productI"></div>
+        <!-- logo -->
+        <div class="logo"></div>
+        <!-- 连接状态 -->
+        <div class="connectState flexR" v-show="isflage">
+          <div>{{ $t("index.noConnect") }}</div>
+          <div class="c_007DFF again" @click="reConnect">
+            {{ $t("index.again") }}
           </div>
         </div>
-        <!-- 颜色 -->
-        <div class="magBottom">
-          <sliderCard
-            class="mt8"
-            leftTxt="颜色"
-            v-show="isBright"
-            :percent="percent"
-            @sliderTouchEnd="sliderTouchEnd"
-          ></sliderCard>
+        <div class="connectState flexR" v-show="!isflage && !isConnect">
+          <div>{{ $t("index.connect") }}</div>
+          <div class="loading_icon"></div>
         </div>
-        <!-- 亮度 -->
-        <div class="magBottom">
-          <sliderCard
-            class="mt8"
-            leftTxt="亮度"
-            v-show="isBright"
-            :percent="percent"
-            @sliderTouchEnd="sliderTouchEnd"
-          ></sliderCard>
+        <div class="connectState flexR" v-show="!isflage && isConnect">
+          <div v-if="isOpen">{{ $t("index.on") }}</div>
+          <div v-else>{{ $t("index.off") }}</div>
+          <div :class="isOpen ? 'open' : 'close'" @click="openClick"></div>
         </div>
-      </div>
-      <!-- 经典颜色 -->
-      <div
-        class="flexR contentList magBottom"
-        @click="brushTimeClick"
-        :class="isflage == isConnect ? 'opacityVal' : ''"
-      >
-        <div>
-          <span>{{ $t("index.ClassicColor") }}</span
-          ><br />
-          <div class="text_color" v-if="isflage !== isConnect">
-            <span>{{ colorDisplay | ClassicColor(te) }}</span>
-          </div>
-        </div>
-        <div class="icon_width">
-          <div
-            :class="
-              isflage == isConnect
-                ? 'time_len_gray patternCommon'
-                : 'time_len patternCommon'
-            "
-          ></div>
-        </div>
-        <HiCardShift
-          class="cardP"
-          :shiftList="shiftTest"
-          v-show="isTime"
-          :selectNum="selectIndex1"
-          @eventClick="timeClick"
-        ></HiCardShift>
-      </div>
-      <!-- 灯光模式 -->
-      <div class="lightMode magBottom">{{ $t("brightMode.mode") }}</div>
-      <div class="flexR">
-        <div class="hi-timeitem_left">
-          <div v-for="(item, index) in todos" :key="index + '-info'">
-            <div class="timeitemMain1" v-if="index % 2 != 1">
-              <span class="mode1 commonImg" @click="useClick(index)"></span>
-              <div class="useLogo" v-show="selectUse == index ? true : false">
-                {{ $t("index.use") }}
+        <!-- one -->
+        <div :class="isflage == isConnect ? 'opacityVal' : ''">
+          <div class="bg_card magBottom">
+            <div class="hi-timeitem">
+              <div
+                class="timeitemMain"
+                v-for="(item, index) in brightItem"
+                :key="index"
+              >
+                <div
+                  class="imgBorder"
+                  :class="selectIndex == index ? 'borderC1' : 'borderC'"
+                  @click="selectBri(item.index)"
+                >
+                  <div :class="['common', item.class]"></div>
+                </div>
+                <span class="timeitemText">{{ item.name }}</span>
               </div>
-              <span>{{ item.text }}</span>
+            </div>
+            <!-- 颜色 -->
+            <div class="magBottom">
+              <sliderCard
+                class="mt8"
+                leftTxt="颜色"
+                v-show="isBright"
+                :percent="percent"
+                @sliderTouchEnd="sliderTouchEnd"
+              ></sliderCard>
+            </div>
+            <!-- 亮度 -->
+            <div class="magBottom">
+              <sliderCard
+                class="mt8"
+                leftTxt="亮度"
+                v-show="isBright"
+                :percent="percent"
+                @sliderTouchEnd="sliderTouchEnd"
+              ></sliderCard>
             </div>
           </div>
-        </div>
+          <!-- 经典颜色 -->
+          <div class="flexR contentList magBottom" @click="brushTimeClick">
+            <div>
+              <span>{{ $t("index.ClassicColor") }}</span
+              ><br />
+              <div class="text_color" v-if="isflage !== isConnect">
+                <span>{{ colorDisplay | ClassicColor(te) }}</span>
+              </div>
+            </div>
+            <div class="icon_width">
+              <div
+                :class="
+                  isflage == isConnect
+                    ? 'time_len_gray patternCommon'
+                    : 'time_len patternCommon'
+                "
+              ></div>
+            </div>
+            <HiCardShift
+              class="cardP"
+              :shiftList="shiftTest"
+              v-show="isTime"
+              :selectNum="selectIndex1"
+              @eventClick="timeClick"
+            ></HiCardShift>
+          </div>
+          <!-- 灯光模式 -->
+          <div class="lightMode magBottom">{{ $t("brightMode.mode") }}</div>
+          <div class="flexR">
+            <div class="hi-timeitem_left">
+              <div v-for="(item, index) in todos" :key="index + '-info'">
+                <div class="timeitemMain1" v-if="index % 2 != 1">
+                  <span class="mode1 commonImg" @click="useClick(index)"></span>
+                  <div
+                    class="useLogo"
+                    v-show="selectUse == index ? true : false"
+                  >
+                    {{ $t("index.use") }}
+                  </div>
+                  <span>{{ item.text }}</span>
+                </div>
+              </div>
+            </div>
 
-        <div class="hi-timeitem_right">
-          <div v-for="(item, index) in todos" :key="index + '-info1'">
-            <div class="timeitemMain1" v-if="index % 2 != 0">
-              <span class="mode1 commonImg" @click="useClick(index)"></span>
-              <div class="useLogo" v-show="selectUse == index ? true : false">
-                {{ $t("index.use") }}
+            <div class="hi-timeitem_right">
+              <div v-for="(item, index) in todos" :key="index + '-info1'">
+                <div class="timeitemMain1" v-if="index % 2 != 0">
+                  <span class="mode1 commonImg" @click="useClick(index)"></span>
+                  <div
+                    class="useLogo"
+                    v-show="selectUse == index ? true : false"
+                  >
+                    {{ $t("index.use") }}
+                  </div>
+                  <span>{{ item.text }}</span>
+                </div>
               </div>
-              <span>{{ item.text }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- 弹窗提示 -->
+    <Cdialog v-show="isDialog"></Cdialog>
   </div>
 </template>
    
@@ -140,7 +149,8 @@ export default {
       isTime: false,
       isUse: false,
       selectUse: null,
-      isOpen:true,
+      isOpen: true,
+      isDialog: false, //弹窗 连接超时
       shiftTest: [
         { name: this.$t("ClassicColor.length1"), index: 0 },
         { name: this.$t("ClassicColor.length2"), index: 1 },
@@ -170,13 +180,51 @@ export default {
       selectIndex1: 0,
       percent: "10",
       isBright: true,
+      connectTimer: null, // 连接倒计时30秒
     };
   },
   computed: {
     ...mapState(["bleConnected", "data", "color"]),
   },
+  watch: {
+    bleConnected(status) {
+      // console.log("蓝牙状态监听：", status);
+      //  监听蓝牙连接状态
+      if (status == 0) {
+        //未连接状态
+        window.hiLinkBle.openBlueTooth();
+        this.isflage = false;
+        this.isConnect = false;
+        this.connectTimerFn();
+      }
+      if (status == 1) {
+        //连接中
+        this.isflage = false;
+        this.isConnect = false;
+        this.isDialog = false;
+        this.connectTimerFn();
+      }
+      if (status == 2) {
+        //已连接
+        this.isflage = false;
+        this.isConnect = true;
+        this.isDialog = false;
+        clearTimeout(this.connectTimer);
+      }
+      if (status == 3) {
+        //连接超时
+        clearTimeout(this.connectTimer);
+        this.isflage = true;
+        this.isConnect = true;
+        this.isDialog = true;
+      }
+    },
+  },
   mounted() {
     this.initData();
+  },
+  beforeDestroy() {
+    clearTimeout(this.connectTimer);
   },
   filters: {
     /**
@@ -199,8 +247,68 @@ export default {
     },
   },
   methods: {
-    openClick(){
-      this.isOpen = !this.isOpen
+    /**
+     * @description: 初始化
+     * @param {*}
+     * @return {*}
+     */
+    initData() {
+      if (this.color == "") {
+        this.colorDisplay = "00";
+      } else {
+        this.colorDisplay = this.color;
+      }
+      this.selectIndex1 = this.changeStatus(this.color);
+
+      this.connectBle();
+    },
+    connectBle() {
+      if (this.bleConnected == 0) {
+        //未连接状态
+        window.hiLinkBle.openBlueTooth();
+        this.isflage = false;
+        this.isConnect = false;
+        this.connectTimerFn();
+      }
+      if (this.bleConnected == 1) {
+        //连接中
+        this.isflage = false;
+        this.isConnect = false;
+        this.isDialog = false;
+        this.connectTimerFn();
+      }
+      if (this.bleConnected == 2) {
+        this.isflage = false; //已连接
+        this.isConnect = true;
+        this.isDialog = false;
+        clearTimeout(this.connectTimer);
+      }
+      if (this.bleConnected == 3) {
+        //连接超时
+        clearTimeout(this.connectTimer);
+        this.isflage = true;
+        this.isConnect = true;
+        this.isDialog = true;
+      }
+    },
+    /**
+     * @description: 连接30秒倒计时
+     * @param {*}
+     * @return {*}
+     */
+    connectTimerFn() {
+      if (this.connectTimer) {
+        clearTimeout(this.connectTimer);
+        this.connectTimer = null;
+      }
+      this.connectTimer = setTimeout(() => {
+        this.isflage = true;
+        this.isConnect = true;
+        this.isDialog = true;
+      }, 30 * 1000);
+    },
+    openClick() {
+      this.isOpen = !this.isOpen;
     },
     useClick(val) {
       this.selectUse = val;
@@ -213,14 +321,6 @@ export default {
     },
     brushTimeClick() {
       this.isTime = !this.isTime;
-    },
-    initData() {
-      if (this.color == "") {
-        this.colorDisplay = "00";
-      } else {
-        this.colorDisplay = this.color;
-      }
-      this.selectIndex1 = this.changeStatus(this.color);
     },
     changeStatus(val) {
       switch (val) {
@@ -326,11 +426,24 @@ export default {
   bottom: 0;
   display: flex;
   flex-direction: column;
-  padding: 0 16px;
   overflow: auto;
   .index_main {
     height: 100%;
     box-sizing: border-box;
+    overflow: auto;
+  }
+  .content {
+    width: 100%;
+    padding: 0 16px;
+    flex: 1;
+    overflow: auto;
+  }
+  .opacityVal {
+    opacity: 0.38;
+    pointer-events: none;
+  }
+  .noPoint {
+    pointer-events: none;
   }
   .flexR {
     display: flex;
@@ -345,6 +458,31 @@ export default {
     background-size: 100% 100%;
     background-repeat: no-repeat;
     margin: 0 auto;
+  }
+  .loading_icon {
+    width: 40px;
+    height: 40px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -webkit-animation: load 1.5s linear infinite;
+    animation: load 1.5s linear infinite;
+  }
+  /*Chorme,Safari必须加上*/
+  @-webkit-keyframes load {
+    to {
+      -webkit-transform: rotate(0deg);
+    }
+    from {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @keyframes load {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
   .logo {
     width: 70px;
@@ -366,7 +504,8 @@ export default {
     .again {
       font-size: 0.44444444rem;
     }
-    .open,.close {
+    .open,
+    .close {
       width: 48px;
       height: 48px;
       background-size: 100% 100%;
@@ -533,6 +672,28 @@ export default {
 .theme-dark {
   .page {
     background-color: #000;
+    .connectState,
+    .contentList {
+      background-color: #262626;
+      color: rgba(255, 255, 255, 0.86);
+    }
+    .text_color {
+      color: #3f97e9;
+    }
+    .lightMode{
+      color: rgba(255, 255, 255, 0.86);
+    }
+    .hi-timeitem {
+     
+     .timeitemMain {
+        .timeitemText {
+          color: rgba(255, 255, 255, 0.86);
+        }
+      .borderC{
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+     }
+    }
   }
 }
 </style>

@@ -1,41 +1,63 @@
-
-.time_len_gray{
-    background-image: url('../assets/image/icon/light/time_len_gray.png');
+.time_len_gray {
+  background-image: url("../assets/image/icon/light/time_len_gray.png");
 }
 .time_len {
-    background-image: url('../assets/image/icon/light/time_len.png');
+  background-image: url("../assets/image/icon/light/time_len.png");
 }
-.bright01{
-    background-image: url('../assets/image/icon/light/bright01.png');
+.bright01 {
+  background-image: url("../assets/image/icon/light/bright01.png");
 }
-.bright02{
-    background-image: url('../assets/image/icon/light/bright02.png');
+.bright02 {
+  background-image: url("../assets/image/icon/light/bright02.png");
 }
-.bright03{
-    background-image: url('../assets/image/icon/light/bright03.png');
+.bright03 {
+  background-image: url("../assets/image/icon/light/bright03.png");
 }
-.bright04{
-    background-image: url('../assets/image/icon/light/bright04.png');
+.bright04 {
+  background-image: url("../assets/image/icon/light/bright04.png");
 }
-.mode1{
-    background-image: url('../assets/image/product/mode1.png');
+.mode1 {
+  background-image: url("../assets/image/product/mode1.png");
 }
-.open{
-    background-image: url('../assets/image/icon/light/on.png');
+.open {
+  background-image: url("../assets/image/icon/light/on.png");
 }
-.close{
-    background-image: url('../assets/image/icon/light/off.png');
+.close {
+  background-image: url("../assets/image/icon/light/off.png");
+}
+
+.loading_icon {
+  background-image: url("../assets/image/icon/light/loading.png");
 }
 .theme-dark {
-    .time_len {
-        background-image: url('../assets/image/icon/dark/time_len.png');
-    }
-   .time_len_gray{
-        background-image: url('../assets/image/icon/dark/time_len_gray.png');
-        opacity: .86;
-    }
-    .open{
-        background-image: url('../assets/image/icon/dark/on.png');
-    }
+  .time_len {
+    background-image: url("../assets/image/icon/dark/time_len.png");
+  }
+  .time_len_gray {
+    background-image: url("../assets/image/icon/dark/time_len_gray.png");
+    opacity: 0.86;
+  }
+  .open {
+    background-image: url("../assets/image/icon/dark/on.png");
+  }
 
+  .loading_icon {
+    background-image: url("../assets/image/icon/dark/loading.png");
+  }
+  .bright01 {
+    background-image: url("../assets/image/icon/dark/bright01.png");
+    opacity: 0.86;
+  }
+  .bright02 {
+    background-image: url("../assets/image/icon/dark/bright02.png");
+    opacity: 0.86;
+  }
+  .bright03 {
+    background-image: url("../assets/image/icon/dark/bright03.png");
+    opacity: 0.86;
+  }
+  .bright04 {
+    background-image: url("../assets/image/icon/dark/bright04.png");
+    opacity: 0.86;
+  }
 }
