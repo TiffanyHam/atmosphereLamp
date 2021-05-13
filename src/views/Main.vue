@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-22 17:06:40
- * @LastEditTime: 2021-05-13 11:41:54
+ * @LastEditTime: 2021-05-13 15:14:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \AleBrush\src\views\index.vue
@@ -99,10 +99,10 @@
           </div>
           <!-- 灯光模式 -->
           <div class="lightMode magBottom">{{ $t("brightMode.mode") }}</div>
-          <div class="flexR">
+          <!-- <div class="flexR"> -->
             <div class="hi-timeitem_left">
-              <div v-for="(item, index) in todos" :key="index + '-info'">
-                <div class="timeitemMain1" v-if="index % 2 != 1">
+              <!-- <div > -->
+                <div class="timeitemMain1" v-for="(item, index) in todos" :key="index + '-info'">
                   <span class="mode1 commonImg" @click="useClick(index)"></span>
                   <div
                     class="useLogo"
@@ -112,10 +112,10 @@
                   </div>
                   <span>{{ item.text }}</span>
                 </div>
-              </div>
+              <!-- </div> -->
             </div>
 
-            <div class="hi-timeitem_right">
+            <!-- <div class="hi-timeitem_right">
               <div v-for="(item, index) in todos" :key="index + '-info1'">
                 <div class="timeitemMain1" v-if="index % 2 != 0">
                   <span class="mode1 commonImg" @click="useClick(index)"></span>
@@ -128,8 +128,9 @@
                   <span>{{ item.text }}</span>
                 </div>
               </div>
-            </div>
-          </div>
+            </div> -->
+
+          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -555,6 +556,12 @@ export default {
     line-height: 48px;
     color: rgba(0, 0, 0, 0.9);
     font-size: 18px;
+  }
+  .hi-timeitem_left{
+        display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
   .timeitemMain1 {
     display: flex;
